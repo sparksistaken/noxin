@@ -3,214 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Script Library</title>
+    <title>Credits</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #1e1e1e;
-            color: #fff;
             margin: 0;
-            padding: 10px;
+            padding: 0;
+            background-color: rgb(13, 13, 13);
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+
+        .credits {
+            max-width: 600px;
         }
 
         h1 {
-            text-align: center;
-            font-size: 1.5em;
+            font-size: 2em;
+            margin-bottom: 20px;
         }
 
-        .script-list {
-            display: grid;
-            grid-template-columns: 1fr; /* Single column for mobile */
-            gap: 10px;
-            margin-top: 15px;
-        }
-
-        .script-card {
-            background-color: #2c2c2c;
-            padding: 15px;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        .script-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.4);
-        }
-
-        .script-title {
-            font-weight: bold;
+        p {
             font-size: 1.1em;
-            margin-bottom: 5px;
+            line-height: 1.5;
         }
 
-        .script-author {
-            font-size: 0.85em;
-            color: #bbb;
+        a {
+            color: #1e90ff;
+            text-decoration: none;
         }
 
-        /* Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 999;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow-y: auto;
-            background-color: rgba(0,0,0,0.8);
-            justify-content: center;
-            align-items: center;
-            padding: 10px;
-        }
-
-        .modal-content {
-            background-color: #2c2c2c;
-            padding: 15px;
-            border-radius: 10px;
-            width: 100%;
-            max-width: 400px;
-            box-sizing: border-box;
-            position: relative;
-        }
-
-        .modal-close {
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            font-size: 1.5em;
-            cursor: pointer;
-        }
-
-        pre {
-            background-color: #1e1e1e;
-            padding: 10px;
-            border-radius: 5px;
-            overflow-x: auto;
-            white-space: pre-wrap;
-            word-wrap: break-word;
-            font-size: 0.9em;
-        }
-
-        button.copy-btn {
-            width: 100%;
-            background-color: #4CAF50;
-            border: none;
-            color: white;
-            padding: 12px;
-            margin-top: 10px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1em;
-        }
-
-        button.copy-btn:hover {
-            background-color: #45a049;
-        }
-
-        @media (min-width: 500px) {
-            .script-list {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (min-width: 800px) {
-            .script-list {
-                grid-template-columns: repeat(3, 1fr);
-            }
+        a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
-    <h1>Script Library</h1>
-    <div class="script-list" id="scriptList">
-        <!-- Scripts will be inserted here dynamically -->
+    <div class="credits">
+        <h1>Credits</h1>
+        <p>Created by: Your Name</p>
+        <p>Thanks to: Contributor1, Contributor2</p>
+        <p>Website: <a href="https://example.com" target="_blank">example.com</a></p>
     </div>
-
-    <!-- Modal -->
-    <div class="modal" id="scriptModal">
-        <div class="modal-content">
-            <span class="modal-close" id="modalClose">&times;</span>
-            <h2 id="modalTitle"></h2>
-            <p id="modalAuthor"></p>
-            <pre id="modalCode"></pre>
-            <button class="copy-btn" id="copyBtn">Copy to Clipboard</button>
-        </div>
-    </div>
-
-    <script>
-        const scripts = [
-            {
-                title: "WalkSpeed Changer",
-                author: "User123",
-                code: `local player = game.Players.LocalPlayer
-local humanoid = player.Character:WaitForChild("Humanoid")
-humanoid.WalkSpeed = 50`
-            },
-            {
-                title: "Jump Power Boost",
-                author: "Dev456",
-                code: `local player = game.Players.LocalPlayer
-local humanoid = player.Character:WaitForChild("Humanoid")
-humanoid.JumpPower = 100`
-            },
-            {
-                title: "Noclip",
-                author: "Coder789",
-                code: `local player = game.Players.LocalPlayer
-local character = player.Character
-for _, part in pairs(character:GetDescendants()) do
-    if part:IsA("BasePart") then
-        part.CanCollide = false
-    end
-end`
-            }
-        ];
-
-        const scriptList = document.getElementById("scriptList");
-        const modal = document.getElementById("scriptModal");
-        const modalTitle = document.getElementById("modalTitle");
-        const modalAuthor = document.getElementById("modalAuthor");
-        const modalCode = document.getElementById("modalCode");
-        const modalClose = document.getElementById("modalClose");
-        const copyBtn = document.getElementById("copyBtn");
-
-        // Populate the script list
-        scripts.forEach((script) => {
-            const card = document.createElement("div");
-            card.classList.add("script-card");
-            card.innerHTML = `
-                <div class="script-title">${script.title}</div>
-                <div class="script-author">by ${script.author}</div>
-            `;
-            card.addEventListener("click", () => {
-                modal.style.display = "flex";
-                modalTitle.textContent = script.title;
-                modalAuthor.textContent = "by " + script.author;
-                modalCode.textContent = script.code;
-            });
-            scriptList.appendChild(card);
-        });
-
-        // Close modal
-        modalClose.addEventListener("click", () => {
-            modal.style.display = "none";
-        });
-
-        // Copy to clipboard
-        copyBtn.addEventListener("click", () => {
-            navigator.clipboard.writeText(modalCode.textContent).then(() => {
-                alert("Copied to clipboard!");
-            });
-        });
-
-        // Close modal when clicking outside
-        window.addEventListener("click", (e) => {
-            if (e.target == modal) {
-                modal.style.display = "none";
-            }
-        });
-    </script>
 </body>
 </html>
