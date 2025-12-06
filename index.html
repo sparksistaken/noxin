@@ -35,34 +35,29 @@
 <body>
     <div>
         <h1>Executor Version Checker</h1>
-        <p>Your Executor Version: <span id="localVersion">1.0</span></p>
+        <p>Your Executor Version: <span id="localVersion">Unknown</span></p>
         <p id="versionStatus" class="version-status">Checking...</p>
     </div>
 
     <script>
-        // Local executor version (this should match what your executor sends)
-        const localVersion = "1.0";
+        // The executor should inject this variable:
+        // window.executorVersion = "1.0";
+
+        // Read the injected version
+        const localVersion = window.executorVersion || "Unknown";
         document.getElementById("localVersion").textContent = localVersion;
 
-        // Simulated fetch from server (replace URL with your real endpoint)
-        fetch('https://your-website.com/latest-version.json')
-            .then(response => response.json())
-            .then(data => {
-                const serverVersion = data.version; // e.g., { "version": "1.0" }
-                const statusElem = document.getElementById("versionStatus");
+        // Compare with the latest known version (hardcoded)
+        const latestVersion = "1.0"; // change this whenever a new version exists
+        const statusElem = document.getElementById("versionStatus");
 
-                if(localVersion === serverVersion){
-                    statusElem.textContent = `Version: Updated (${serverVersion})`;
-                    statusElem.classList.add("updated");
-                } else {
-                    statusElem.textContent = `Version: Outdated (${serverVersion})`;
-                    statusElem.classList.add("outdated");
-                }
-            })
-            .catch(err => {
-                console.error(err);
-                document.getElementById("versionStatus").textContent = "Version: Unknown";
-            });
+        if(localVersion === latestVersion){
+            statusElem.textContent = `Version: Updated (${localVersion})`;
+            statusElem.classList.add("updated");
+        } else {
+            statusElem.textContent = `Version: Outdated (${localVersion})`;
+            statusElem.classList.add("outdated");
+        }
     </script>
 </body>
 </html>
