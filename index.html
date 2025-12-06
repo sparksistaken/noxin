@@ -3,52 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Executor Version Check</title>
     <style>
-        body {
-            margin: 0;
-            padding: 0;
-            background-color: rgb(13, 13, 13);
-            color: #fff;
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            text-align: center;
-        }
-
         .version-status {
             font-size: 1.5em;
             margin-top: 20px;
         }
 
         .updated {
-            color: #00ff00; /* green */
+            color: #00ff00; 
         }
 
         .outdated {
-            color: #ff3333; /* red */
+            color: #ff3333; 
         }
     </style>
 </head>
 <body>
     <div>
-        <h1>Executor Version Checker</h1>
         <p>Your Executor Version: <span id="localVersion">Unknown</span></p>
         <p id="versionStatus" class="version-status">Checking...</p>
     </div>
 
     <script>
-        // The executor should inject this variable:
-        // window.executorVersion = "1.0";
-
-        // Read the injected version
         const localVersion = window.executorVersion || "Unknown";
         document.getElementById("localVersion").textContent = localVersion;
 
-        // Compare with the latest known version (hardcoded)
-        const latestVersion = "1.0"; // change this whenever a new version exists
+        const latestVersion = "1.5"; 
         const statusElem = document.getElementById("versionStatus");
 
         if(localVersion === latestVersion){
