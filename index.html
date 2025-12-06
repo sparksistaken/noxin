@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Credits</title>
+    <title>Executor Version Check</title>
     <style>
         body {
             margin: 0;
             padding: 0;
-            background-color: rgb(16, 16, 16);
-            color: #ffffff;
+            background-color: rgb(13, 13, 13);
+            color: #fff;
             font-family: Arial, sans-serif;
             display: flex;
             justify-content: center;
@@ -18,36 +18,51 @@
             text-align: center;
         }
 
-        .credits {
-            max-width: 600px;
+        .version-status {
+            font-size: 1.5em;
+            margin-top: 20px;
         }
 
-        h1 {
-            font-size: 2em;
-            margin-bottom: 20px;
+        .updated {
+            color: #00ff00; /* green */
         }
 
-        p {
-            font-size: 1.1em;
-            line-height: 1.5;
-        }
-
-        a {
-            color: #1e90ff;
-            text-decoration: none;
-        }
-
-        a:hover {
-            text-decoration: underline;
+        .outdated {
+            color: #ff3333; /* red */
         }
     </style>
 </head>
 <body>
-    <div class="credits">
-        <h1>Credits</h1>
-        <p>Created by: Your Name</p>
-        <p>Thanks to: Contributor1, Contributor2</p>
-        <p>Website: <a href="https://example.com" target="_blank">example.com</a></p>
+    <div>
+        <h1>Executor Version Checker</h1>
+        <p>Your Executor Version: <span id="localVersion">1.0</span></p>
+        <p id="versionStatus" class="version-status">Checking...</p>
     </div>
+
+    <script>
+        // Local executor version (this should match what your executor sends)
+        const localVersion = "1.0";
+        document.getElementById("localVersion").textContent = localVersion;
+
+        // Simulated fetch from server (replace URL with your real endpoint)
+        fetch('https://your-website.com/latest-version.json')
+            .then(response => response.json())
+            .then(data => {
+                const serverVersion = data.version; // e.g., { "version": "1.0" }
+                const statusElem = document.getElementById("versionStatus");
+
+                if(localVersion === serverVersion){
+                    statusElem.textContent = `Version: Updated (${serverVersion})`;
+                    statusElem.classList.add("updated");
+                } else {
+                    statusElem.textContent = `Version: Outdated (${serverVersion})`;
+                    statusElem.classList.add("outdated");
+                }
+            })
+            .catch(err => {
+                console.error(err);
+                document.getElementById("versionStatus").textContent = "Version: Unknown";
+            });
+    </script>
 </body>
 </html>
